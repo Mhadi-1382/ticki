@@ -1,0 +1,89 @@
+
+{% extends 'includes/_base.html' %}
+
+{% block description %}{% endblock description %}
+{% block keywords %}{% endblock keywords %}
+{% block title %}پنل مدیریت: کاربران - تیکی{% endblock title %}
+
+
+{% block body %}
+
+    <!-- Background Header -->
+    <div class="header-background">
+
+        {% include 'includes/_navbar.html' %}
+
+        <!-- Header -->
+        <header class="container" style="background-color: #fff; border-radius: 36px; position: relative; top: 40px; text-align: right;">
+            <div class="table-container">
+                <div class="table-title">
+                    <div>
+                        <h3>کاربران</h3>
+                        <p>لیست تمامی کاربران<p>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>نام کاربری</th>
+                            <th>رمز عبور</th>
+                            <th>ایمیل</th>
+                            <th>شماره تماس</th>
+                            <th>وضعیت</th>
+                            <th>نقش کاربر</th>
+                            <th>تاریخ ثبت نام</th>
+                            <th><span class="far fa-ellipsis-h"></span></th>
+                            <th><span class="far fa-ellipsis-h"></span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if users | length >= 1 %}
+                            {% for user in users %}
+                                <tr>
+                                    <td>{{ user[0] }}</td>
+                                    <td>{{ user[1] }}</td>
+                                    <td>{{ user[2] }}</td>
+                                    <td>{{ user[3] }}</td>
+                                    <td>{{ user[4] }}</td>
+                                    
+                                    {% if user[5] == '1' %}
+                                        <td><span class="badge blue">فعال</span></td>
+                                    {% else %}
+                                        <td><span class="badge orange">غیرفعال</span></td>
+                                    {% endif %}
+                                    
+                                    {% if user[6] == 1 %}
+                                        <td>مدیر کل</td>
+                                    {% else %}
+                                        <td>کاربر</td>
+                                    {% endif %}
+
+                                    <td>{{ user[7] }}</td>
+
+                                    <form action="/admin/users/remove/{{ user[0] }}/" method="post">
+                                        <td><button type="submit" class="far far fa-trash" title="حذف کاربر" style="cursor: pointer;"></button></td>
+                                    </form>
+                                    
+                                    {% if user[5] == '1' %}
+                                        <form action="/admin/users/disable/{{ user[0] }}/" method="post">
+                                            <td><button type="submit" class="far far fa-ban" title="غیرفعال سازی کاربر" style="cursor: pointer;"></button></td>
+                                        </form>
+                                    {% else %}
+                                        <form action="/admin/users/enable/{{ user[0] }}/" method="post">
+                                            <td><button type="submit" class="far far fa-check-circle" title="فعال سازی کاربر" style="cursor: pointer;"></button></td>
+                                        </form>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <p style="color: #606060; margin-bottom: 20px;">موردی یافت نشده است.</p>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </header>
+
+    </div>
+
+{% endblock body %}

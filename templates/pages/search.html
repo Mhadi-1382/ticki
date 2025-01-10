@@ -1,0 +1,73 @@
+
+{% extends 'includes/_base.html' %}
+
+{% block description %}{% endblock description %}
+{% block keywords %}{% endblock keywords %}
+{% block title %}جستجو برای: {{ ticketSearch }} - تیکی{% endblock title %}
+
+
+{% block body %}
+
+    <!-- Background Header -->
+    <div class="header-background">
+
+        {% include 'includes/_navbar.html' %}
+
+        <!-- Header -->
+        <header class="container" style="height: 80px;">
+            <!-- Form: Search -->
+            <form action="/ticket/search/" method="post" class="container form-search-header form-search-header-page-search">
+                <label for="s"><span class="far fa-search"></span></label>
+                <input type="search" id="s" name="ticketSearch" placeholder="جستجو بر اساس عنوان تیکت" aria-placeholder="جستجو بر اساس عنوان تیکت" value="{{ ticketSearch }}">
+            </form>
+        </header>
+
+    </div>
+
+    <!-- Section: Tickets -->
+    <div class="container">
+        <section class="tickets">
+            <div class="section-tickets-header">
+                <h3>جستجو برای: {{ ticketSearch }}</h3>
+            </div>
+            <div class="section-tickets-body">
+                {% for Q in searchQuery %}
+                    {% if Q == 'NOT_FOUND' %}
+                        <p style="color: #606060;">موردی یافت نشد.</p>
+                    {% else %}
+                        <div class="card">
+                            <div class="card-header">
+                                <div>
+                                    <h3>{{ Q[1] }}</h3>
+                                    <p>{{ Q[4] }}</p>
+                                </div>
+                                {% if Q[7] == 'بسته' %}
+                                    <li class="badge orange">{{ Q[7] }}</li>
+                                {% else %}
+                                    <li class="badge blue">{{ Q[7] }}</li>
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <p>{{ Q[2] }}</p>
+                                <h5 style="margin-top: 10px; color: #707070; direction: ltr; display: flex; align-items: center;"><span class="far fa-clock" style="margin-right: 8px;"></span> <span>{{ Q[9] }}</span></h5>
+                                {% if Q[3] | length >= 1 %}
+                                    <details>
+                                        <summary class="btn"><span class="far fa-message"></span> <span>نمایش پاسخ</span></summary>
+            
+                                        <p>{{ Q[3] }}</p>
+                                        <h5><span class="far fa-clock"></span> <span>{{ Q[8] }}</span></h5>
+                                    </details>
+                                {% else %}
+                                    
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+
+    {% include 'includes/_footer.html' %}
+
+{% endblock body %}

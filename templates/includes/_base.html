@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fa-IR" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="{% block description %}{% endblock description %}">
+        <meta name="keywords" content="{% block keywords %}{% endblock keywords %}">
+
+        <!-- Import CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+
+        <!-- Import FontAwesome -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='fonts/css/all.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='fonts/css/fontawesome.min.css') }}">
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="{{ url_for('static', filename='imgs/logo/logo_ticki.svg') }}" type="image/x-icon">
+
+        <!-- Title -->
+        <title>{% block title %}{% endblock title %}</title>
+    </head>
+    <body>
+
+        <!-- Main -->
+        <main>
+            <!-- Alerts -->
+            {% include 'includes/_alerts.html' %}
+
+            {% block body %}{% endblock body %}
+        </main>
+
+
+        <!-- Import JS -->
+        <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+
+    </body>
+</html>

@@ -1,0 +1,47 @@
+
+<!-- Footer -->
+<footer>
+    <h3>راه های ارتباطی با ما</h3>
+
+    <div class="footer-button">
+        <a href="mailto:mrabiee175@gmail.com">
+            <li class="btn"><span class="far fa-envelope"></span> <span>ارتباط از طریق ایمیل</span></li>
+        </a>
+        <a href="tel:09031265448">
+            <li class="btn"><span class="far fa-phone"></span> <span>ارتباط از طریق تماس</span></li>
+        </a>
+    </div>
+    <p class="footer-copyright">کلیه حقوق مادی و معنوی سایت برای تیکی محفوظ است.</p>
+</footer>
+
+<!-- Button Fixed -->
+<div class="btn-fixed" title="ثبت تیکت" onclick="modalFunc('modalSendTicket');">
+    <li class="far fa-ticket"></li>
+</div>
+
+<!-- Modals -->
+<div class="modal-overlay" id="modalSendTicket">
+    <i onclick="modalFunc('modalSendTicket');"></i>
+    <div class="modal">
+        {% if session %}
+            <div class="modal-header">
+                <div class="modal-header-line" onclick="modalFunc('modalSendTicket');"></div>
+                <h3>ثبت تیکت</h3>
+                <p>کاربر گرامی، پاسخ تیکت شما در 24 ساعت آینده بصورت ایمیل ارسال می شود.</p>
+            </div>
+            <div class="modal-body">
+                <form action="/ticket/send/" method="post" class="form-control-modal-ticket">
+                    <input type="text" name="ticketTitle" placeholder="عنوان تیکت" aria-placeholder="عنوان تیکت" maxlength="200" required>
+                    <textarea name="ticketQuery" placeholder="متن تیکت" aria-placeholder="متن تیکت" rows="7" required></textarea>
+                    <input type="submit" value="ارسال تیکت">
+                </form>
+            </div>
+        {% else %}
+            <div class="modal-header">
+                <div class="modal-header-line" onclick="modalFunc('modalSendTicket');"></div>
+                <h3>ثبت تیکت</h3>
+                <p>برای ثبت تیکت ابتدا <a href="/signup/">ثبت نام</a> کنید یا <a href="/signin/">وارد حساب کاربری</a> خود شوید.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>

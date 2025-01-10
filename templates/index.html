@@ -1,0 +1,102 @@
+
+{% extends 'includes/_base.html' %}
+
+{% block description %}{% endblock description %}
+{% block keywords %}{% endblock keywords %}
+{% block title %}با سریع ترین روش به جوابت برس - تیکی{% endblock title %}
+
+
+{% block body %}
+    
+    <!-- Background Header -->
+    <div class="header-background">
+
+        {% include 'includes/_navbar.html' %}
+
+        <!-- Header -->
+        <header class="container">
+            <img src="imgs/logo/logo_ticki.svg" alt="" width="65" draggable="false">
+
+            <h1>با سریع ترین روش به جوابت برس!</h1>
+            <p>سایتی است که کاربر تیکت یا سوال خودش را ثبت می کند و بعد از ثبت، تیکت در صفحه اصلی نمایش داده میشود، همچنین در پنل مدیر تیکتها قابل مشاهده و مدیریت هستند؛ در واقع شبیه به یک سیستم پشتیبانی می باشد.</p>
+
+            <div style="display: inline-flex;">
+                <a href="javascript:modalFunc('modalSendTicket');">
+                    <li class="btn"><span class="far fa-arrow-up"></span> <span>شروع کنید</span></li>
+                </a>
+                <a href="javascript:modalFunc('modalHelps');">
+                    <li class="btn"><span class="far fa-info-circle"></span> <span>راهنمای استفاده</span></li>
+                </a>
+            </div>
+
+            <!-- Form: Search -->
+            <form action="/ticket/search/" method="post" class="container form-search-header">
+                <label for="s"><span class="far fa-search"></span></label>
+                <input type="search" id="s" name="ticketSearch" placeholder="جستجو بر اساس عنوان تیکت" aria-placeholder="جستجو بر اساس عنوان تیکت">
+            </form>
+        </header>
+
+    </div>
+
+    <!-- Section: Tickets -->
+    <div class="container">
+        <section class="tickets">
+            <div class="section-tickets-header">
+                <h3>تیکت های ارسالی</h3>
+            </div>
+            <div class="section-tickets-body">
+                {% if get_tickets | length >= 1 %}
+                    {% for ticket in get_tickets %}
+                        <div class="card">
+                            <div class="card-header">
+                                <div>
+                                    <h3>{{ ticket[1] }}</h3>
+                                    <p>{{ ticket[4] }}</p>
+                                </div>
+                                {% if ticket[7] == 'بسته' %}
+                                    <li class="badge orange">{{ ticket[7] }}</li>
+                                {% else %}
+                                    <li class="badge blue">{{ ticket[7] }}</li>
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <p>{{ ticket[2] }}</p>
+                                <h5 style="margin-top: 10px; color: #707070; direction: ltr; display: flex; align-items: center;"><span class="far fa-clock" style="margin-right: 8px;"></span> <span>{{ ticket[9] }}</span></h5>
+                                {% if ticket[3] | length >= 1 %}
+                                    <details>
+                                        <summary class="btn"><span class="far fa-message"></span> <span>نمایش پاسخ</span></summary>
+            
+                                        <p>{{ ticket[3] }}</p>
+                                        <h5><span class="far fa-clock"></span> <span>{{ ticket[8] }}</span></h5>
+                                    </details>
+                                {% else %}
+                                    
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="color: #606060;">موردی یافت نشده است.</p>
+                {% endif %}
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalHelps">
+        <i onclick="modalFunc('modalHelps');"></i>
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-header-line" onclick="modalFunc('modalHelps');"></div>
+                <h3>راهنمای استفاده</h3>
+            </div>
+            <div class="modal-body">
+                <p>سایتی است که کاربر تیکت یا سوال خودش را ثبت می کند و بعد از ثبت، تیکت در صفحه اصلی نمایش داده میشود، همچنین در پنل مدیر تیکتها قابل مشاهده و مدیریت هستند؛ در واقع شبیه به یک سیستم پشتیبانی می باشد.</p>
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.</p>
+            </div>
+        </div>
+    </div>
+
+    {% include 'includes/_footer.html' %}
+
+{% endblock body %}

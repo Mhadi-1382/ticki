@@ -1,0 +1,29 @@
+
+<!-- Navbar -->
+<nav class="container">
+    <li class="far fa-bars" onclick="navbarMobileFunc();"></li>
+    <div class="navbar-overlay" id="navbarMoblieOverlay">
+        <i onclick="navbarMobileFunc();" style="display: none;"></i>
+        <ul class="navbar-moblie">
+            {% if session['role_id'] == 1 %}
+                <li><a href="/">صفحه اصلی</a></li>
+                <li><a href="/admin/panel/">پنل مدیریت</a></li>
+                <li><a href="/admin/tickets/">تیکت ها</a></li>
+                <li><a href="/admin/users/">کاربران</a></li>
+                <li><a href="/signout/">خروج از حساب</a></li>
+            {% elif session['role_id'] == 2 %}
+                <li><a href="/">صفحه اصلی</a></li>
+                <li><a href="/signout/">خروج از حساب</a></li>
+            {% else %}
+                <li><a href="/">صفحه اصلی</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <ul>
+        {% if session %}
+            <li class="navbar-avatar" style="text-transform: uppercase;">{{ session['email'][0] }}</li>
+        {% else %}
+            <a href="/signin/"><li class="navbar-avatar" style="background-color: #f5f5f5; color: #000;"><span class="far fa-user"></span></li></a>
+        {% endif %}
+    </ul>
+</nav>

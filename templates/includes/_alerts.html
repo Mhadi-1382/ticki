@@ -1,0 +1,47 @@
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="alert-continer" id="alertContainer">
+            {% for category, msg in messages %}
+                {% if category == 'error' %}
+                    <div class="alert" id="alertError">
+                        <span class="far fa-times-circle"></span>
+                        <p>{{ msg }}</p>
+                    </div>
+                {% elif category == 'success' %}
+                    <div class="alert" id="alertSuccess">
+                        <span class="far fa-check-circle"></span>
+                        <p>{{ msg }}</p>
+                    </div>
+                {% elif category == 'message' or category == 'info' %}
+                    <div class="alert" id="alertMessageInfo">
+                        <span class="far fa-comment"></span>
+                        <p>{{ msg }}</p>
+                    </div>
+                {% endif %}
+
+                <script>
+                    var alertErrorId = document.getElementById('alertError');
+                    var alertSuccessId = document.getElementById('alertSuccess');
+                    var alertMessageInfoId = document.getElementById('alertMessageInfo');
+                    var alertContainerId = document.getElementById('alertContainer');
+
+                    setTimeout(() => {
+                        alertErrorId.style.display = 'none';
+                        alertSuccessId.style.display = 'none';
+                        alertMessageInfoId.style.display = 'none';
+                        alertContainerId.style.display = 'none !important';
+                    }, 5000);
+                </script>
+            {% endfor %}
+        </div>
+
+        <script>
+            var alertContainerId = document.getElementById('alertContainer');
+
+            setTimeout(() => {
+                alertContainerId.style.display = 'none';
+            }, 5000);
+        </script>
+    {% endif %}
+{% endwith %}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fa-IR" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Import CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+
+        <!-- Import FontAwesome -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='fonts/css/all.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='fonts/css/fontawesome.min.css') }}">
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="{{ url_for('static', filename='imgs/logo/logo_ticki.svg') }}" type="image/x-icon">
+
+        <!-- Title -->
+        <title>ورود به حساب - تیکی</title>
+    </head>
+    <body>
+
+        <!-- Alerts -->
+        {% include 'includes/_alerts.html' %}
+
+        <!-- Section: Signin -->
+        <section class="section-single">
+            <img src="{{ url_for('static', filename='imgs/logo/logotype_ticki_b.svg') }}" alt="logo ticki" draggable="false">
+
+            <!-- Form: Signin -->
+            <form action="" method="post" class="form-control-single">
+                <div>
+                    <h3>ورود به حساب</h3>
+                    <p>با عضویت در سایت، تمامی قوانین و شرایط استفاده از خدمات <a href="">تیکی</a> را پذیرفته اید.</p>
+                </div>
+
+                <input type="email" name="signinEmail" placeholder="ایمیل" aria-placeholder="ایمیل" maxlength="300" required>
+                <input type="password" name="signinPassword" placeholder="رمز عبور" aria-placeholder="رمز عبور" maxlength="100" required>
+                <input type="submit" value="ورود">
+            </form>
+
+            <p style="margin-top: 15px; color: #707070;">حساب کاربری ندارید؟ <a href="">ثبت نام کنید</a></p>
+        </section>
+
+    </body>
+</html>

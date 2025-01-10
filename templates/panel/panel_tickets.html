@@ -1,0 +1,71 @@
+
+{% extends 'includes/_base.html' %}
+
+{% block description %}{% endblock description %}
+{% block keywords %}{% endblock keywords %}
+{% block title %}پنل مدیریت: تیکت ها - تیکی{% endblock title %}
+
+
+{% block body %}
+
+    <!-- Background Header -->
+    <div class="header-background">
+
+        {% include 'includes/_navbar.html' %}
+
+        <!-- Header -->
+        <header class="container" style="background-color: #fff; border-radius: 36px; position: relative; top: 40px; text-align: right;">
+            <div class="table-container">
+                <div class="table-title">
+                    <div>
+                        <h3>تیکت ها</h3>
+                        <p>لیست تمامی تیکتها</p>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>عنوان تیکت</th>
+                            <th>نام کاربر</th>
+                            <th>ایمیل</th>
+                            <th>شماره تماس</th>
+                            <th>وضعیت</th>
+                            <th>تاریخ ثبت تیکت</th>
+                            <th><span class="far fa-ellipsis-h"></span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if tickets | length >= 1 %}
+                            {% for ticket in tickets %}
+                                <tr>
+                                    <td>{{ ticket[0] }}</td>
+                                    <td>{{ ticket[1] }}</td>
+                                    <td>{{ ticket[4] }}</td>
+                                    <td>{{ ticket[5] }}</td>
+                                    <td>{{ ticket[6] }}</td>
+                                    
+                                    {% if ticket[7] == 'بسته' %}
+                                        <td><span class="badge orange">{{ ticket[7] }}</span></td>
+                                    {% else %}
+                                        <td><span class="badge blue">{{ ticket[7] }}</span></td>
+                                    {% endif %}
+
+                                    <td>{{ ticket[9] }}</td>
+
+                                    <form action="/admin/tickets/remove/{{ ticket[0] }}/" method="post">
+                                        <td><button type="submit" class="far fa-trash" title="حذف تیکت" style="cursor: pointer;"></button></td>
+                                    </form>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <p style="color: #606060; margin-bottom: 20px;">موردی یافت نشده است.</p>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </header>
+
+    </div>
+
+{% endblock body %}

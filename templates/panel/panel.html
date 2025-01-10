@@ -1,0 +1,130 @@
+
+{% extends 'includes/_base.html' %}
+
+{% block description %}{% endblock description %}
+{% block keywords %}{% endblock keywords %}
+{% block title %}پنل مدیریت - تیکی{% endblock title %}
+
+
+{% block body %}
+
+    <!-- Background Header -->
+    <div class="header-background">
+
+        {% include 'includes/_navbar.html' %}
+
+        <!-- Header -->
+        <header class="container" style="height: 180px;">
+            <!-- Card: Report -->
+            <div class="card-reports">
+                <a href="/admin/tickets/">
+                    <div class="card-report">
+                        <span class="far fa-ticket"></span>
+                        <h4>تعداد تیکت ها</h4>
+                        <li>{{ len_tickets }}</li>
+                    </div>
+                </a>
+                <a href="/admin/users/">
+                    <div class="card-report">
+                        <span class="far fa-users"></span>
+                        <h4>تعداد کاربران</h4>
+                        <li>{{ len_users }}</li>
+                    </div>
+                </a>
+            </div>
+        </header>
+
+    </div>
+
+    <!-- Section: Tickets -->
+    <div class="container">
+        <section class="tickets" style="margin-top: 200px;">
+            <div class="section-tickets-header">
+                <div class="tab">
+                    <li class="tab-item tab-active" id="tabTicketActiveOpen" onclick="tabTicketOpenFunc();">باز</li>
+                    <li class="tab-item" id="tabTicketActiveClose" onclick="tabTicketCloseFunc();">بسته</li>
+                </div>
+            </div>
+            <div class="section-tickets-body">
+                <div class="tab-ticket-open" id="tabTicketOpen">
+                    <p style="margin-bottom: 30px; font-size: 14px; font-weight: 600; color: #404040;">تعداد تیکت های فعال: {{ len_tickets_open }}</p>
+
+                    {% if tickets_open | length >= 1 %}
+                        {% for ticketOpen in tickets_open %}
+                            <div class="card" style="margin-bottom: 1rem;">
+                                <div class="card-header">
+                                    <div>
+                                        <h3>{{ ticketOpen[1] }}</h3>
+                                        <p>{{ ticketOpen[4] }}</p>
+                                        <details>
+                                            <summary style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: #505050; margin: 3px 0;"><span class="far fa-angle-down"></span> <span style="font-size: 14px;">اطلاعات بیشتر</span></summary>
+                                            
+                                            <a href="mailto:{{ ticketOpen[5] }}">{{ ticketOpen[5] }}</a>
+                                            <br>
+                                            <a href="tel:{{ ticketOpen[6] }}">{{ ticketOpen[6] }}</a>
+                                        </details>
+                                    </div>
+                                    <li class="badge blue">{{ ticketOpen[7] }}</li>
+                                </div>
+                                <div class="card-body">
+                                    <p>{{ ticketOpen[2] }}</p>
+                                    <h5 style="margin-top: 10px; color: #707070; direction: ltr; display: flex; align-items: center;"><span class="far fa-clock" style="margin-right: 8px;"></span> <span>{{ ticketOpen[9] }}</span></h5>
+                                    <details>
+                                        <summary class="btn"><span class="far fa-send" style="rotate: -45deg;"></span> <span>ثبت پاسخ</span></summary>
+        
+                                        <form action="/admin/ticket/response/{{ ticketOpen[0] }}/" method="post">
+                                            <textarea name="ticketResponse" rows="7" placeholder="متن تیکت" aria-placeholder="متن تیکت" style="border-radius: 16px; border: 1px solid #f5f5f5; margin-top: 15px;" required></textarea>
+                                            <input type="hidden" name="ticketEamil" value="{{ ticketOpen[5] }}">
+                                            <input type="hidden" name="ticketTitle" value="{{ ticketOpen[1] }}">
+                                            <input type="hidden" name="ticketUsername" value="{{ ticketOpen[4] }}">
+                                            <input type="submit" value="ثبت پاسخ">
+                                        </form>
+                                    </details>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p style="color: #606060;">موردی یافت نشده است.</p>
+                    {% endif %}
+                </div>
+                <div class="tab-ticket-close" id="tabTicketClose" style="display: none;">
+                    <p style="margin-bottom: 30px; font-size: 14px; font-weight: 600; color: #404040;">تعداد تیکت های غیرفعال: {{ len_tickets_close }}</p>
+                    
+                    {% if tickets_close | length >= 1 %}
+                        {% for ticketClose in tickets_close %}
+                            <div class="card" style="margin-bottom: 1rem;">
+                                <div class="card-header">
+                                    <div>
+                                        <h3>{{ ticketClose[1] }}</h3>
+                                        <p>{{ ticketClose[4] }}</p>
+                                        <details>
+                                            <summary style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: #505050; margin: 3px 0;"><span class="far fa-angle-down"></span> <span style="font-size: 14px;">اطلاعات بیشتر</span></summary>
+                                            
+                                            <a href="mailto:{{ ticketClose[5] }}">{{ ticketClose[5] }}</a>
+                                            <br>
+                                            <a href="tel:{{ ticketClose[6] }}">{{ ticketClose[6] }}</a>
+                                        </details>
+                                    </div>
+                                    <li class="badge orange">{{ ticketClose[7] }}</li>
+                                </div>
+                                <div class="card-body">
+                                    <p>{{ ticketClose[2] }}</p>
+                                    <h5 style="margin-top: 10px; color: #707070; direction: ltr; display: flex; align-items: center;"><span class="far fa-clock" style="margin-right: 8px;"></span> <span>{{ ticketClose[9] }}</span></h5>
+                                    <details>
+                                        <summary class="btn"><span class="far fa-message"></span> <span>نمایش پاسخ</span></summary>
+        
+                                        <p>{{ ticketClose[3] }}</p>
+                                        <h5><span class="far fa-clock"></span> <span>{{ ticketClose[8] }}</span></h5>
+                                    </details>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p style="color: #606060;">موردی یافت نشده است.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    </div>
+    
+{% endblock body %}
