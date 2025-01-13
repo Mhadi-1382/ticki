@@ -24,5 +24,11 @@ The documentation and steps for implementing the ticki site are available in the
 <br>
 <a href="https://github.com/Mhadi-1382/ticki/blob/main/ticket_system_doc.pdf">View ticki docs<a/>
 
+## Screenshots
+<img src="https://github.com/Mhadi-1382/ticki/blob/main/Cover_Ticki_Website_01.jpg" alt="Support System ticki Website Project">
+<img src="https://github.com/Mhadi-1382/ticki/blob/main/Cover_Ticki_Website_02.jpg" alt="Support System ticki Website Project">
+<br>
+<a href="https://dribbble.com/shots/25470464-Support-System-ticki-Website-Project">UI in Dribbble<a/>
+
 ## Licence
 This project is <a href="https://github.com/Mhadi-1382/ticki/blob/main/LICENSE">MIT<a/> licenced.
